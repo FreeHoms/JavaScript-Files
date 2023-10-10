@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>Tärning</title>
+</head>
+
+<style>
+    .boxstyle{
+        width: 240px;
+        height: auto;
+        border: 2px solid black;
+        background-color: rgba(210, 253, 255, 0.137);
+        margin-left: 40px;
+        border-radius: 5%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .lastThrow, .NumOfRolls, .TotalValue, .average, .history{
+        margin-left: 10px;
+        font-weight: 700;
+
+    }
+    
+</style>
+
+<div style="padding: 40px; padding-bottom: 15px;">
+    <button class="btn btn-primary btn-dice"><i class="fas fa-dice"></i> Kasta</button>
+    <button class="btn btn-danger btn-erase"><i class="fas fa-trash-alt"></i> Nollställ</button>
+</div>
+<div class="box">
+    <div class="lastThrow"></div>
+    <div class="NumOfRolls"></div>
+    <div class="TotalValue"></div>
+    <div class="average"></div>
+    <div class="history"></div>
+</div>
+
+<script>
+    class Dice{
+        constructor(){
+            this.Value = 0;
+            this.NumOfRolls = 0;
+            this.TotalValue = 0;
+        }
+
+        Roll(){
+            this.Value = Math.ceil(Math.random()*6);
+            dice.TotalValue += dice.Value;
+            dice.NumOfRolls++;
+
+        }
+
+        GetAverageValue(){
+            this.AverageValue = Math.round(dice.TotalValue/dice.NumOfRolls * 100)/100 //medelvärdet är avrundat till två decimaler.
+        }
+
+        GetHistory(){
+            let newValue = historyarray.push(dice.Value);
+        }
+
+
+    }
+    var dice = new Dice();
+    let historyarray = [];
+    var element = document.querySelector(".box");
+    var diceElement = document.querySelector(".btn-dice");
+    var eraseElement = document.querySelector(".btn-erase");
+    var displayElement = document.querySelector(".lastThrow");
+    var displayElement2 = document.querySelector(".TotalValue");
+    var displayElement3 = document.querySelector(".NumOfRolls");
+    var displayElement4 = document.querySelector(".average");
+    var displayElement5 = document.querySelector(".history");
+    diceElement.onclick = function(){
+        element.classList.add("boxstyle");
+        dice.Roll();
+        dice.GetAverageValue();
+        dice.GetHistory();
+        displayElement.innerHTML = "Senaste kast: " + dice.Value;
+        displayElement2.innerHTML = "Totalt värde: " + dice.TotalValue;
+        displayElement3.innerHTML = "Totalt antal kast: " + dice.NumOfRolls;
+        displayElement4.innerHTML = "Medelvärde: " +  dice.AverageValue;
+        displayElement5.innerHTML = "Historik: " + historyarray.join(' ');
+
+
+    }
+
+    eraseElement.onclick = function(){
+        element.classList.remove("boxstyle");
+        historyarray = [];
+        dice.AverageValue = 0;
+        dice.TotalValue = 0;
+        dice.NumOfRolls = 0;
+        displayElement.innerHTML = "";
+        displayElement2.innerHTML = "";
+        displayElement3.innerHTML = "";
+        displayElement4.innerHTML = "";
+        displayElement5.innerHTML = "";
+    }
+</script>
+</html>

@@ -1,0 +1,15 @@
+
+<p id="date"></p>
+
+<button>Hämta aktuell tid</button>
+
+<script>
+var date = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
+document.getElementById("date").innerHTML = "Aktuell tid: "  + date;
+var button = document.querySelector("button");
+button.onclick = function(){
+    var date = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString();
+    document.getElementById("date").innerHTML = "Aktuell tid: "  + date;
+}
+
+</script>

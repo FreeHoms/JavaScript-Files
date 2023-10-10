@@ -1,0 +1,55 @@
+<style>
+    .number{
+        margin: 5px;
+        width: 30px;
+        height: 30px;
+        border: 1px solid black;
+        display: inline-block;
+        padding: 5px;
+        box-sizing: border-box;
+        text-align: center;
+        cursor: pointer;
+        background-color: rgb(51, 178, 228);
+    }
+</style>
+
+<input id="number" type="number">
+
+<button>Lägg till</button>
+
+<br>
+<br>
+
+<script>
+    var button = document.querySelector("button");
+    button.onclick = function() {
+        var numbers = document.getElementById("number").value;
+        for(var i=0; i<numbers; i++)
+        { 
+            document.body.appendChild(createElement());
+        }
+
+    }
+
+    function createElement(){
+        var element = document.createElement("div");
+        element.innerHTML = Math.ceil(Math.random()*9);
+        element.classList.add("number");
+        element.onclick = function(){
+            var num = parseInt(element.innerHTML);
+            if (num == 1){
+                element.remove();
+            }
+
+            else{
+                element.innerHTML = num - 1;
+            }
+
+            }
+      
+        return element;
+
+    }
+
+
+</script>

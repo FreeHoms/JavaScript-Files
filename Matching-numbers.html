@@ -1,0 +1,100 @@
+<style>
+    .number{
+        margin: 5px;
+        width: 30px;
+        height: 30px;
+        border: 1px solid black;
+        display: inline-block;
+        padding: 5px;
+        box-sizing: border-box;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .first-element{
+        background-color: mediumpurple;
+    }
+
+    .matched{
+        color: #eee;
+        border-color: #eee;
+    }
+
+    p{
+        position:absolute;
+        left: 45%;
+        top: -2%;
+        font-size: 20px;
+    }
+</style>
+
+<button>Add</button>
+<p>
+    Total matched <span 
+    id="display">0</span>/15
+</p>
+<br>
+<br>
+
+
+<script>
+    var button = document.querySelector("button");
+    var firstElement = null;
+    var count = 0;
+    var times = 0;
+    var disp = document.getElementById("display");
+    button.onclick = function() {
+        if(times < 4){
+            for(var i=0; i<9; i++)
+            { 
+                document.body.appendChild(createElement());
+            }
+         times++;
+        }
+        
+
+    }
+
+
+    function createElement(){
+        var element = document.createElement("div");
+        element.innerHTML = Math.ceil(Math.random()*9);
+        element.classList.add("number");
+        element.onclick = function(){
+            if(element == firstElement || element.classList.contains("matched")){
+                return;
+            }
+            if(firstElement == null){
+                firstElement = element;
+                element.classList.add("first-element");
+            }
+
+            
+
+            else{
+                var number1 = parseInt(firstElement.innerHTML);
+                var number2 = parseInt(element.innerHTML);
+                if(number1 == number2 || number1 + number2 == 10){
+                    element.classList.add("matched");
+                    firstElement.classList.add("matched");
+                    count++;
+                    disp.innerHTML = count;
+                    
+
+                }
+                
+                firstElement.classList.remove("first-element");
+                firstElement = null;
+            }
+            if (count == 15){
+            alert("Congrats!! You Won");
+        }
+            
+        }
+      
+        return element;
+
+    }
+
+
+</script>
